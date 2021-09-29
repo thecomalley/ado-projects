@@ -1,19 +1,45 @@
-// curl --location --request GET 'https://dev.azure.com/malleynet/_apis/projects?api-version=5.0' \
-// --header 'Authorization: Basic ' \
+function searchProjects() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("my-table");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
 
 // Example POST method implementation:
-async function getData(url = '') {
+async function getData(url = 'https://dev.azure.com/malleynet/_apis/projects?api-version=5.0') {
   // Default options are marked with *
   const response = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Basic '
+      'Authorization': 'Basic'
     },
   });
   return response.json(); // parses JSON response into native JavaScript objects
 }
 
-getData('https://dev.azure.com/malleynet/_apis/projects?api-version=5.0',)
+async function loadData(path = '') {
+  // Default options are marked with *
+  const response = await fetch(path);
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
+//loadData()
+getData()
   .then(data => {
     console.log(data.value); // JSON data parsed by `data.json()` call
     let tableRef = document.getElementById('my-table');
@@ -35,6 +61,3 @@ getData('https://dev.azure.com/malleynet/_apis/projects?api-version=5.0',)
         cell4.innerHTML = `<button type="button" class="btn btn-primary">Access</button>`
     })
 });
-
-// GET https://vssps.dev.azure.com/{organization}/_apis/graph/Subjects/{subjectDescriptor}/avatars?api-version=6.1-preview.1
-
