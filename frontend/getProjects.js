@@ -1,5 +1,5 @@
 // Example POST method implementation:
-async function getData(url = 'http://localhost:7071/api/GetProjects') {
+async function getData(url = '/api/GetProjects') {
   // Default options are marked with *
   const response = await fetch(url, {
     headers: {
