@@ -1,1 +1,7 @@
-http://localhost:7071/api/GetProjects
+
+
+http://localhost:7071/api/HttpTrigger
+
+###
+
+http://localhost:7071/admin/functions/TimerTrigger
